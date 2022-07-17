@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 from disnake import CommandInter, Member, User
 from disnake.ext.commands import Cog, slash_command
