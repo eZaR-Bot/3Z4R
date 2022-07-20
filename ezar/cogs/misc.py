@@ -91,6 +91,7 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
             roles = ", ".join(
                 sorted([r.mention for r in guild.roles if r.id != guild.id])
             )
+        vanity = (await guild.vanity_invite(use_cached=True))
         info_embed = Embeb(
             description=guild.description,
         )
@@ -106,6 +107,9 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
         info_embed.add_field(name="Owner", value=guild.owner)
         info_embed.add_field(name="ID", value=guild.id)
         info_embed.add_field(name=f"Members [{len(guild.members)}]", value=members)
+        info_embed.add_field(name="Created", value=f"<t:{round(guild.created_at.timestamp())}>"),
+        info_embed.add_field(name="Rule Channel", value=guild.rules_channel.mention)
+        info_embed.add_field(name="Vanity URL", value=f"[{guild.vanity_url_code}]({vanity.url if vanity else ''})")
         info_embed.add_field(
             name=f"Channels [{len(guild.channels)}]", value=channels, inline=False
         )
