@@ -1,7 +1,7 @@
 from inspect import cleandoc
 from typing import Literal, Optional
 
-from disnake import CommandInter, Member, User
+from disnake import CommandInter, Member, User, utils
 from disnake.ext.commands import Cog, slash_command
 
 from ezar import Ezar
@@ -110,10 +110,13 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
         info_embed.add_field(name="Owner", value=guild.owner)
         info_embed.add_field(name="ID", value=guild.id)
         info_embed.add_field(name=f"Members [{len(guild.members)}]", value=members)
+        info_embed.add_field(name="Created", value=utils.format_dt(guild.created_at)),
         info_embed.add_field(
-            name="Created", value=f"<t:{round(guild.created_at.timestamp())}>"
-        ),
-        info_embed.add_field(name="Rule Channel", value=guild.rules_channel.mention)
+            name="Rule Channel",
+            value=guild.rules_channel.mention
+            if guild.rules.channel
+            else "No rules channel",
+        )
         info_embed.add_field(
             name="Vanity URL",
             value=f"[{guild.vanity_url_code}]({vanity.url if vanity else ''})",
