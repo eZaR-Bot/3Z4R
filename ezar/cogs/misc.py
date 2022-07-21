@@ -89,7 +89,10 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
             roles = "Too many roles to display."
         else:
             roles = ", ".join(
-                sorted([r.mention for r in guild.roles if r.id != guild.id], key=lambda r: r.position)
+                sorted(
+                    [r.mention for r in guild.roles if r.id != guild.id],
+                    key=lambda r: r.position,
+                )
             )
         vanity = await guild.vanity_invite(use_cached=True)
         info_embed = Embeb(
